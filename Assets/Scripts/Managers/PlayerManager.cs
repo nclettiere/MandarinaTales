@@ -1,21 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
+using CameraManagement;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] GameObject playerPrefab;
-    // Start is called before the first frame update
+    [SerializeField] DynamicCamera dynamicCamera;
+
+    private PlayerController playerController;
+    
     void Start()
     {
-
-        Instantiate(playerPrefab);
-        
+        playerController = Instantiate(playerPrefab, transform).GetComponent<PlayerController>();
+        dynamicCamera.ChangeTarget(playerController.transform);
+        dynamicCamera.FollowTarget = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    public Transform GetPlayerTransform()
     {
-        
+        return playerPrefab.transform;
+    }
+    
+    public PlayerController GetPlayerController()
+    {
+        return playerController;
+    }
+
+    public void MoverJugadorHorizontal(float valor)
+    {
+        playerController.Movement.MoverHorizontal(valor);
     }
 }
