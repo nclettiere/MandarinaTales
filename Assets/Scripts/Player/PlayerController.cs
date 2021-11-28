@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    Attack attackScript;
-    Movement movementScript;
+    public Attack Attack;
+    public Movement Movement;
+    public Animation Anim;
 
-    // Start is called before the first frame update
     void Start()
     {
-        attackScript = GetComponent<Attack>();
-        movementScript = GetComponent<Movement>();
+        Attack = GetComponent<Attack>();
+        Movement = GetComponent<Movement>();
+        Anim = GetComponent<Animation>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
