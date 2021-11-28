@@ -17,9 +17,9 @@ GameObject:
   - component: {fileID: 5576824138405720758}
   - component: {fileID: 3712076837318194147}
   - component: {fileID: 4650286970986063102}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,7 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 863404f5c72d4a12a46ce08ef3579827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Anim: {fileID: 0}
 --- !u!50 &7140142208746644109
 Rigidbody2D:
   serializedVersion: 4
@@ -191,8 +190,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1328698497
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 4518225611054890064, guid: 35458c8acde4ef047b8084d542e9389e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

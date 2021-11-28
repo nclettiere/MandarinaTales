@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public InputManager inputManager;
     public PlayerManager playerManager;
     public EnemyManager enemyManager;
+    public SoundManager soundManager;
     
     void Awake()
     {
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
         playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
         inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
         enemyManager = GameObject.Find("EnemyManager").GetComponent<EnemyManager>();
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     public void ExitGame()
