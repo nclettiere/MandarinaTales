@@ -26,7 +26,6 @@ public class InputManager : MonoBehaviour
         // Movimiento Horizontal
         controls.Gameplay.Horizontal.performed += ctx =>
         {
-            Debug.Log("MoverHoz");
             GameManager.GM.playerManager.GetPlayerController()
                 .Movement.MoverHorizontal(ctx.ReadValue<float>());
         };

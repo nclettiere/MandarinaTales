@@ -6,17 +6,24 @@ public class PlayerController : MonoBehaviour
 {
     public Attack Attack;
     public Movement Movement;
-    public Animation Anim;
+    public PlayerAnimation Anim;
+    
+    public Transform CompanionTarget;
 
     void Start()
     {
         Attack = GetComponent<Attack>();
         Movement = GetComponent<Movement>();
-        Anim = GetComponent<Animation>();
+        Anim = GetComponent<PlayerAnimation>();
     }
 
     void Update()
     {
         
+    }
+
+    public Vector3 GetCompanionTarget()
+    {
+        return CompanionTarget.position;
     }
 }

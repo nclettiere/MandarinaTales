@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Movement : MonoBehaviour
 {
@@ -10,16 +11,26 @@ public class Movement : MonoBehaviour
     [SerializeField] private int jumpForce = 5;
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundedRadius = .2f;
     [SerializeField] private float jumpCooldown = 0.5f;
     
     private PlayerController controller;
     private Rigidbody2D rBody;
     private Vector3 velocity = Vector3.zero;
     private bool facingRight = true;
+    private bool grounded;
 
     private float horizontalMovement;
     private float jumpCooldownTime = float.NegativeInfinity;
     
+    public UnityEvent OnLandEvent;
+
+    private void Awake()
+    {
+        if (OnLandEvent == null)
+            OnLandEvent = new UnityEvent();
+    }
+
     void Start()
     {
         controller = GetComponent<PlayerController>();
@@ -28,6 +39,8 @@ public class Movement : MonoBehaviour
     
     private void Update()
     {
+        CheckGroundEvent();
+        
         Vector3 targetVelocity = new Vector2(horizontalMovement * speed, rBody.velocity.y);
         rBody.velocity = Vector3.SmoothDamp(rBody.velocity, targetVelocity, ref velocity, smoothing);
 
@@ -41,10 +54,34 @@ public class Movement : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(groundCheck.position, groundedRadius);
+    }
+
+    private void CheckGroundEvent()
+    {
+        controller.Anim.UpdateGrounded(grounded);
+        
+        bool wasGrounded = grounded;
+        grounded = false;
+        
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, groundedRadius, whatIsGround);
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if (colliders[i].gameObject != gameObject)
+            {
+                grounded = true;
+                if (!wasGrounded)
+                    OnLandEvent.Invoke();
+            }
+        }
+    }
+
     public void MoverHorizontal(float movement)
     {
         horizontalMovement = movement;
-        controller.Anim.UpdateVelocity(movement > 0 || movement < 0);
+        controller.Anim.UpdateMovingHorizontal(movement > 0 || movement < 0);
     }
 
     public void Jump()
