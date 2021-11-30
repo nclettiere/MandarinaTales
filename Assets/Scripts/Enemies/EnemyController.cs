@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    public int maxHealth = 50;
+    public float damageCooldown = 1;
     [SerializeField] private Transform[] playerDetectionCheck;
     [SerializeField] private LayerMask whatIsPlayer;
 
@@ -12,8 +14,12 @@ public class EnemyController : MonoBehaviour
     public EnemyAnimation enemyAnimation;
     public EnemyMovement enemyMovement;
 
-    private void Start()
+    private int currentHealth;
+    private float damageCooldownTime = float.NegativeInfinity;
+
+    protected virtual void Start()
     {
+        currentHealth = maxHealth;
     }
 
     protected virtual void Update()
@@ -50,5 +56,25 @@ public class EnemyController : MonoBehaviour
     public T GetEnemyAnimator<T>() where T : EnemyAnimation
     {
         return enemyAnimation as T;
+    }
+
+    public void Damage(int amount)
+    {
+        if (Time.time >= damageCooldownTime)
+        {
+            currentHealth -= amount;
+
+            if (currentHealth <= 0)
+            {
+                Die();
+            }
+            
+            damageCooldownTime = Time.time + damageCooldown;
+        }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 }

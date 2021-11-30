@@ -18,7 +18,10 @@ namespace Enemies.Mandarino
             
             controller.GetEnemyAnimator<MandarinoAnimation>()
                 .onRollEndedEvent
-                .AddListener(()=> canAttack = false);
+                .AddListener(()=> {
+                    controller.enemyMovement.Stop();
+                    canAttack = false;
+                });
         }
 
         public override void OnUpdate()

@@ -24,11 +24,27 @@ public class EnemyMovement : MonoBehaviour
         rBody.velocity = Vector3.SmoothDamp(rBody.velocity, targetVelocity, ref velocity, smoothing);
     }
     
-    private void Flip()
+    public void Stop()
+    {
+        rBody.velocity = Vector3.zero;
+    }
+    
+    public void Flip()
     {
         facingRight = !facingRight;
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+    }
+
+    public void LookAtPlayer()
+    {
+        var playerPos = GameManager.GM.playerManager
+            .GetPlayerController().transform.position.x;
+        
+        if (transform.position.x > playerPos && facingRight)
+            Flip();
+        else if (transform.position.x < playerPos && !facingRight)
+            Flip();
     }
 }
