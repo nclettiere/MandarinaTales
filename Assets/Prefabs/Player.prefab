@@ -116,6 +116,8 @@ MonoBehaviour:
   Attack: {fileID: 5594246908069332035}
   Movement: {fileID: 7150920655968539865}
   Anim: {fileID: 20764731850769050}
+  maxHealth: 10
+  damageCooldown: 1
   CompanionTarget: {fileID: 7685450622039927067}
 --- !u!114 &5594246908069332035
 MonoBehaviour:

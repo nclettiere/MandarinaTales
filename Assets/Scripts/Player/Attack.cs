@@ -25,9 +25,7 @@ public class Attack : MonoBehaviour
             if (collider.gameObject != gameObject)
             {
                 if (collider.CompareTag("Enemy"))
-                {
-                    collider.transform.SendMessage("Damage", 25);
-                }
+                    collider.transform.SendMessage("Damage", 5);
             }
         }
     }

@@ -9,6 +9,7 @@ namespace Enemies.Mandarino
         public UnityEvent onRollStartedEvent;
         public UnityEvent onRollEndedEvent;
         private static readonly int StartRoll = Animator.StringToHash("StartRoll");
+        private static readonly int Walk = Animator.StringToHash("Walk");
 
         private void Awake()
         {
@@ -21,6 +22,11 @@ namespace Enemies.Mandarino
         public void StartRolling()
         {
             anim.SetBool(StartRoll, true);
+        }
+        
+        public void WalkAnimation(bool shouldWalk)
+        {
+            anim.SetBool(Walk, shouldWalk);
         }
         
         public void Anim_OnStartedRolling()

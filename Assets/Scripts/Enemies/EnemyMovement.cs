@@ -7,16 +7,23 @@ public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 5;
     [SerializeField] private float smoothing = .05f;
+    [SerializeField] private Transform[] wallChecks;
+    [SerializeField] private LayerMask whatIsGround;
     private Rigidbody2D rBody;
     private Vector3 velocity = Vector3.zero;
     private bool facingRight = true;
     
-    private void Start()
+    protected virtual void Start()
     {
         rBody = GetComponent<Rigidbody2D>();
     }
 
-    public void Move()
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(wallChecks[0].position, wallChecks[1].position);
+    }
+
+    public virtual void Move()
     {
         int directionMultiplier = facingRight ? 1 : -1;
         
@@ -24,9 +31,22 @@ public class EnemyMovement : MonoBehaviour
         rBody.velocity = Vector3.SmoothDamp(rBody.velocity, targetVelocity, ref velocity, smoothing);
     }
     
+    public virtual void Move(float customSpeed)
+    {
+        int directionMultiplier = facingRight ? 1 : -1;
+        
+        Vector3 targetVelocity = new Vector2(directionMultiplier * customSpeed, rBody.velocity.y);
+        rBody.velocity = Vector3.SmoothDamp(rBody.velocity, targetVelocity, ref velocity, smoothing);
+    }
+    
     public void Stop()
     {
         rBody.velocity = Vector3.zero;
+    }
+
+    public bool CheckWall()
+    {
+        return Physics2D.Linecast(wallChecks[0].position, wallChecks[1].position, whatIsGround);
     }
     
     public void Flip()

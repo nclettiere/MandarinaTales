@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Enemies;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -9,13 +10,17 @@ public class EnemyController : MonoBehaviour
     public float damageCooldown = 1;
     [SerializeField] private Transform[] playerDetectionCheck;
     [SerializeField] private LayerMask whatIsPlayer;
+    [SerializeField] private bool blockIAOnInvisible = true;
 
     public EnemyIA enemyIA;
     public EnemyAnimation enemyAnimation;
     public EnemyMovement enemyMovement;
+    public EnemyAttack enemyAttack;
 
     private int currentHealth;
     private float damageCooldownTime = float.NegativeInfinity;
+    
+    private bool isInvisible = true;
 
     protected virtual void Start()
     {
@@ -24,7 +29,13 @@ public class EnemyController : MonoBehaviour
 
     protected virtual void Update()
     {
-        enemyIA.OnUpdate();
+        if (blockIAOnInvisible)
+        {
+            if(!isInvisible)
+                enemyIA.OnUpdate();
+        }
+        else
+            enemyIA.OnUpdate();
     }
     
     protected virtual void FixedUpdate()
@@ -43,12 +54,31 @@ public class EnemyController : MonoBehaviour
         Gizmos.DrawLine(playerDetectionCheck[1].position, playerDetectionCheck[2].position);
     }
 
+    private void OnBecameInvisible()
+    {
+        isInvisible = true;
+    }
+
+    private void OnBecameVisible()
+    {
+        isInvisible = false;
+    }
+
     public bool CheckPlayerInLongRange()
     {
-        return Physics2D.Linecast(playerDetectionCheck[1].position, playerDetectionCheck[2].position, whatIsPlayer);
+        var hits = Physics2D.LinecastAll(playerDetectionCheck[1].position, playerDetectionCheck[2].position);
+        if (hits.Length <= 0) return false;
+        return hits[0].transform.CompareTag("Player");
     }
     
     public bool CheckPlayerInNearRange()
+    {
+        var hits = Physics2D.LinecastAll(playerDetectionCheck[0].position, playerDetectionCheck[1].position);
+        if (hits.Length <= 0) return false;
+        return hits[0].transform.CompareTag("Player");
+    }
+    
+    public bool CheckPlayerTouchDamage()
     {
         return Physics2D.Linecast(playerDetectionCheck[0].position, playerDetectionCheck[1].position, whatIsPlayer);
     }
@@ -56,6 +86,11 @@ public class EnemyController : MonoBehaviour
     public T GetEnemyAnimator<T>() where T : EnemyAnimation
     {
         return enemyAnimation as T;
+    }    
+    
+    public T GetEnemyMovement<T>() where T : EnemyMovement
+    {
+        return enemyMovement as T;
     }
 
     public void Damage(int amount)

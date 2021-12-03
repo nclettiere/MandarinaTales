@@ -26,11 +26,14 @@ namespace Enemies.Mandarino
 
         public override void OnUpdate()
         {
+            DoWalk();
+            
             if (controller.CheckPlayerInNearRange() || controller.CheckPlayerInLongRange())
             {
                 playerPosition = GameManager.GM.playerManager.GetPlayerTransform().position;
                 controller.GetEnemyAnimator<MandarinoAnimation>()
                     .StartRolling();
+                canAttack = true;
             }
             
             CheckForDamage();
@@ -40,7 +43,18 @@ namespace Enemies.Mandarino
         {
             if (canAttack)
             {
+                controller.GetEnemyAnimator<MandarinoAnimation>().WalkAnimation(false);
                 controller.enemyMovement.Move();
+                controller.enemyAttack.DoBasicAttack();
+            }
+        }
+
+        private void DoWalk()
+        {
+            if (!canAttack)
+            {
+                controller.GetEnemyMovement<MandarinoMovement>().Walk();
+                controller.GetEnemyAnimator<MandarinoAnimation>().WalkAnimation(true);
             }
         }
     }
