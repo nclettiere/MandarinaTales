@@ -9,6 +9,8 @@ public class PlayerAnimation : MonoBehaviour
     private static readonly int MovingHorizontal = Animator.StringToHash("MovingHorizontal");
     private static readonly int IsAttackingMelee = Animator.StringToHash("IsAttackingMelee");
     private static readonly int Grounded = Animator.StringToHash("Grounded");
+    private static readonly int Hurt = Animator.StringToHash("Hurt");
+    private static readonly int Died = Animator.StringToHash("Died");
 
     private void Start()
     {
@@ -28,12 +30,33 @@ public class PlayerAnimation : MonoBehaviour
 
     public void UpdateGrounded(bool grounded)
     {
-        anim.SetBool(Grounded, grounded);
+        if(!anim.GetBool(IsAttackingMelee) && !anim.GetBool(Hurt))
+            anim.SetBool(Grounded, grounded);
+    }
+    
+    public void PlayerHurt(bool hurt)
+    {
+        if(!anim.GetBool(IsAttackingMelee) && anim.GetBool(Grounded))
+            anim.SetBool(Hurt, hurt);
     }
 
     public void Anim_OnNormalAttackFinished()
     {
         AttackingMelee(false);
         controller.Attack.SetIsAttacking(false);
+    }
+    
+    public void Anim_OnHurtEnd()
+    {
+        PlayerHurt(false);
+    }
+
+    public void PlayerDied()
+    {
+        PlayerHurt(false);
+        UpdateGrounded(true);
+        AttackingMelee(false);
+        UpdateMovingHorizontal(false);
+        anim.SetBool(Died, true);
     }
 }

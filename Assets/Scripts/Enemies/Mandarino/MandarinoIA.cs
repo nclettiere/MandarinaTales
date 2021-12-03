@@ -4,8 +4,8 @@ namespace Enemies.Mandarino
 {
     public class MandarinoIA : EnemyIA
     {
-        private Vector3 playerPosition;
-        
+        [SerializeField] private float mandarinoRollCooldown = 1f;
+        private float mandarinoRollTime = float.NegativeInfinity;
         private bool canAttack;
 
         public override void Start()
@@ -21,16 +21,18 @@ namespace Enemies.Mandarino
                 .AddListener(()=> {
                     controller.enemyMovement.Stop();
                     canAttack = false;
+                    mandarinoRollTime = Time.time + mandarinoRollCooldown;
                 });
         }
 
         public override void OnUpdate()
         {
+            if (controller.died) return;
+            
             DoWalk();
             
-            if (controller.CheckPlayerInNearRange() || controller.CheckPlayerInLongRange())
+            if (Time.time >= mandarinoRollTime && (controller.CheckPlayerInNearRange() || controller.CheckPlayerInLongRange()))
             {
-                playerPosition = GameManager.GM.playerManager.GetPlayerTransform().position;
                 controller.GetEnemyAnimator<MandarinoAnimation>()
                     .StartRolling();
                 canAttack = true;

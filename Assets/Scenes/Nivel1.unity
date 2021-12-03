@@ -4509,7 +4509,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &1620133056
 MonoBehaviour:
@@ -4523,7 +4523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8383f6ef0ecdf9e4e93a2b9b0c7d1294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  maxHealth: 5
   damageCooldown: 1
   playerDetectionCheck:
   - {fileID: 1944938009}
@@ -4537,6 +4537,9 @@ MonoBehaviour:
   enemyAnimation: {fileID: 1620133058}
   enemyMovement: {fileID: 1620133061}
   enemyAttack: {fileID: 1620133060}
+  OnDie:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1620133057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4550,6 +4553,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 1620133056}
+  mandarinoRollCooldown: 1
 --- !u!114 &1620133058
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,8 @@ public class PlayerController : MonoBehaviour
     private int currentHealth;
     private float damageCooldownTime = float.NegativeInfinity;
 
+    public bool died { get; private set; }
+
     void Start()
     {
         Attack = GetComponent<Attack>();
@@ -24,25 +27,25 @@ public class PlayerController : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    void Update()
-    {
-        
-    }
-
     public Vector3 GetCompanionTarget()
     {
         return CompanionTarget.position;
     }
     
-    public void Damage(int amount)
+    public void Damage(Tuple<int, bool> options)
     {
+        if (currentHealth <= 0) return;
         if (Time.time >= damageCooldownTime)
         {
-            currentHealth -= amount;
+            currentHealth -= options.Item1;
     
             if (currentHealth <= 0)
-            {
                 Die();
+            else
+            {
+                Anim.PlayerHurt(true);
+                if (options.Item2)
+                    Movement.DoKnockback();
             }
             
             damageCooldownTime = Time.time + damageCooldown;
@@ -51,6 +54,7 @@ public class PlayerController : MonoBehaviour
     
     private void Die()
     {
-        Destroy(gameObject);
+        died = true;
+        Anim.PlayerDied();
     }
 }

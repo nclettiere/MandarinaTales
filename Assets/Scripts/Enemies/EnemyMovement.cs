@@ -67,4 +67,12 @@ public class EnemyMovement : MonoBehaviour
         else if (transform.position.x < playerPos && !facingRight)
             Flip();
     }
+
+    public void DeadMovement()
+    {
+        Stop();
+        rBody.constraints = RigidbodyConstraints2D.None;
+        rBody.AddForce(new Vector2(0, 3), ForceMode2D.Impulse);
+        rBody.AddTorque(1f, ForceMode2D.Force);
+    }
 }

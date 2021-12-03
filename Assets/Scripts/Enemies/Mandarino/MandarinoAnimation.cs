@@ -29,6 +29,12 @@ namespace Enemies.Mandarino
             anim.SetBool(Walk, shouldWalk);
         }
         
+        public override void DeadAnim()
+        {
+            WalkAnimation(false);
+            base.DeadAnim();
+        }
+        
         public void Anim_OnStartedRolling()
         {
             onRollStartedEvent.Invoke();

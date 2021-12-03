@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Enemies;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyController : MonoBehaviour
 {
     public int maxHealth = 50;
-    public float damageCooldown = 1;
+    public float damageCooldown = 0.25f;
     [SerializeField] private Transform[] playerDetectionCheck;
     [SerializeField] private LayerMask whatIsPlayer;
     [SerializeField] private bool blockIAOnInvisible = true;
@@ -22,6 +23,15 @@ public class EnemyController : MonoBehaviour
     
     private bool isInvisible = true;
 
+    public bool died { get; private set; }
+    public UnityEvent OnDie;
+
+    private void Awake()
+    {
+        if (OnDie == null)
+            OnDie = new UnityEvent();
+    }
+
     protected virtual void Start()
     {
         currentHealth = maxHealth;
@@ -29,6 +39,8 @@ public class EnemyController : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (died) return;
+        
         if (blockIAOnInvisible)
         {
             if(!isInvisible)
@@ -110,6 +122,10 @@ public class EnemyController : MonoBehaviour
 
     private void Die()
     {
-        Destroy(gameObject);
+        died = true;
+        OnDie.Invoke();
+        enemyAnimation.DeadAnim();
+        enemyMovement.DeadMovement();
+        Destroy(gameObject, 3);
     }
 }

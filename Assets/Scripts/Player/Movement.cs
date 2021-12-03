@@ -39,6 +39,8 @@ public class Movement : MonoBehaviour
     
     private void Update()
     {
+        if (controller.died) return;
+        
         CheckGroundEvent();
         
         Vector3 targetVelocity = new Vector2(horizontalMovement * speed, rBody.velocity.y);
@@ -61,6 +63,8 @@ public class Movement : MonoBehaviour
 
     private void CheckGroundEvent()
     {
+        if (controller.died) return;
+        
         controller.Anim.UpdateGrounded(grounded);
         
         bool wasGrounded = grounded;
@@ -80,21 +84,30 @@ public class Movement : MonoBehaviour
 
     public void MoverHorizontal(float movement)
     {
+        if (controller.died) return;
         horizontalMovement = movement;
         controller.Anim.UpdateMovingHorizontal(movement > 0 || movement < 0);
     }
 
     public void Jump()
     {
+        if (controller.died) return;
         if (Time.time >= jumpCooldownTime)
         {
             rBody.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             jumpCooldownTime = Time.time + jumpCooldown;
         }
     }
+
+    public void DoKnockback()
+    {
+        int direction = facingRight ? -1 : 1;
+        rBody.AddForce(new Vector2(10 * direction, 2), ForceMode2D.Impulse);
+    }
     
     private void Flip()
     {
+        if (controller.died) return;
         facingRight = !facingRight;
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
