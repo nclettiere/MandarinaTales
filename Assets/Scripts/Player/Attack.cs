@@ -18,6 +18,7 @@ public class Attack : MonoBehaviour
 
     public void CheckForMeleeDamage()
     {
+        if (controller.died) return;
         Collider2D[] colliders =
             Physics2D.OverlapCircleAll(meleeAttackPostion.position, meleeAttackRadius, whatIsEnemy);
         foreach (var collider in colliders)
@@ -25,7 +26,7 @@ public class Attack : MonoBehaviour
             if (collider.gameObject != gameObject)
             {
                 if (collider.CompareTag("Enemy"))
-                    collider.transform.SendMessage("Damage", 5);
+                    collider.transform.SendMessage("Damage", 4);
             }
         }
     }
@@ -39,7 +40,10 @@ public class Attack : MonoBehaviour
     public void DoNormalAttack()
     {
         if (controller.died) return;
+<<<<<<< HEAD
         
+=======
+>>>>>>> 110eabf (wtf)
         if (!isAttacking && controller.Movement.grounded)
         {
             controller.Anim.AttackingMelee(true);
