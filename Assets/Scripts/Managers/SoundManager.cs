@@ -17,4 +17,9 @@ public class SoundManager : MonoBehaviour
         LevelMusicSource.volume = MasterVolume;
         LevelMusicSource.Play();
     }
+
+    public void PlayAtLocation(Vector3 position, AudioClip clip)
+    {
+        AudioSource.PlayClipAtPoint(clip, position, MasterVolume);
+    }
 }

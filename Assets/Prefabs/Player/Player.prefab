@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeAttackPostion: {fileID: 918099084721290916}
-  meleeAttackRadius: 0.13
+  meleeAttackRadius: 0.26
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 256

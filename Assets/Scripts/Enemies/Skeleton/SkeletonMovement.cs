@@ -4,4 +4,8 @@ using UnityEngine;
 
 public class SkeletonMovement : EnemyMovement
 {
+    public override void DeadMovement()
+    {
+        Stop();
+    }
 }

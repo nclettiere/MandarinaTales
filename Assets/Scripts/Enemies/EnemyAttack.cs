@@ -25,7 +25,7 @@ namespace Enemies
                 if (collider.gameObject != gameObject)
                 {
                     if (collider.CompareTag("Player"))
-                        collider.transform.SendMessage("Damage", new Tuple<int, bool>(2, true));
+                        collider.transform.SendMessage("Damage", new Tuple<int, bool>(BasicAttackAmount, true));
                 }
             }
         }

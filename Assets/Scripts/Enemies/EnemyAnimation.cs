@@ -7,7 +7,7 @@ public class EnemyAnimation : MonoBehaviour
 {
     protected Animator anim;
     protected EnemyController controller;
-    private static readonly int Dead = Animator.StringToHash("Dead");
+    protected static readonly int Dead = Animator.StringToHash("Dead");
 
     private void Start()
     {

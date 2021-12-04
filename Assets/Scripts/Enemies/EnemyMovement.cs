@@ -68,7 +68,7 @@ public class EnemyMovement : MonoBehaviour
             Flip();
     }
 
-    public void DeadMovement()
+    public virtual void DeadMovement()
     {
         Stop();
         rBody.constraints = RigidbodyConstraints2D.None;

@@ -4,18 +4,39 @@ using UnityEngine;
 
 public class SkeletonIA : EnemyIA
 {
-    private bool canAttack;
-    
+    public bool isAttacking;
+    private SkeletonAnimation anim;
+
+    public override void Start()
+    {
+        base.Start();
+        anim = controller.GetEnemyAnimator<SkeletonAnimation>();
+    }
+
     public override void OnUpdate()
     {
-        if (controller.CheckPlayerInNearRange())
+        if (!anim.IsHurt())
         {
-            controller.GetEnemyAnimator<SkeletonAnimation>()
-                .AttackAnim(true);
+            if (controller.CheckPlayerInNearRange() && !isAttacking)
+            {
+                anim.AttackAnim(true);
+                anim.WalkAnim(false);
+                controller.enemyMovement.Stop();
+                isAttacking = true;
+            }
+            else if (!isAttacking)
+            {
+                anim.WalkAnim(true);
+                anim.AttackAnim(false);
+                controller.enemyMovement.Move();
+
+                if (controller.enemyMovement.CheckWall())
+                    controller.enemyMovement.Flip();
+            }
         }
         else
         {
-            controller.enemyMovement.Move();
+            controller.enemyMovement.Stop();
         }
     }
 }

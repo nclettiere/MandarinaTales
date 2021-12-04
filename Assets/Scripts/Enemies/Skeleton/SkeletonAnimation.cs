@@ -7,7 +7,6 @@ public class SkeletonAnimation : EnemyAnimation
     private static readonly int Attacc = Animator.StringToHash("Attacc");
     private static readonly int Walk = Animator.StringToHash("Walk");
     private static readonly int Hit = Animator.StringToHash("Hit");
-    private static readonly int Dead1 = Animator.StringToHash("Dead");
 
     public void AttackAnim(bool shouldAttack)
     {
@@ -22,20 +21,29 @@ public class SkeletonAnimation : EnemyAnimation
     public void HitAnim(bool hit)
     {
         anim.SetBool(Hit, hit);
-    }     
+    }
     
     public void DeadAnim()
     {
-        anim.SetBool(Dead1, true);
+        WalkAnim(false);
+        HitAnim(false);
+        AttackAnim(false);
+        anim.SetBool(Dead, true);
     }
 
     public void Anim_OnAttackFinished()
     {
-        anim.SetBool(Attacc, false);   
+        anim.SetBool(Attacc, false);
+        controller.GetEnemyIA<SkeletonIA>().isAttacking = false;
     }
     
     public void Anim_OnHitEnded()
     {
         anim.SetBool(Hit, false);   
+    }
+
+    public bool IsHurt()
+    {
+        return anim.GetBool(Hit);
     }
 }

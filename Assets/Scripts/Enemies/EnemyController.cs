@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Enemies;
 using UnityEngine;
 using UnityEngine.Events;
@@ -18,12 +19,12 @@ public class EnemyController : MonoBehaviour
     public EnemyMovement enemyMovement;
     public EnemyAttack enemyAttack;
 
-    private int currentHealth;
-    private float damageCooldownTime = float.NegativeInfinity;
-    
-    private bool isInvisible = true;
+    protected int currentHealth;
+    protected float damageCooldownTime = float.NegativeInfinity;
 
-    public bool died { get; private set; }
+    protected bool isInvisible = true;
+
+    public bool died { get; protected set; }
     public UnityEvent OnDie;
 
     private void Awake()
@@ -40,16 +41,16 @@ public class EnemyController : MonoBehaviour
     protected virtual void Update()
     {
         if (died) return;
-        
+
         if (blockIAOnInvisible)
         {
-            if(!isInvisible)
+            if (!isInvisible)
                 enemyIA.OnUpdate();
         }
         else
             enemyIA.OnUpdate();
     }
-    
+
     protected virtual void FixedUpdate()
     {
         enemyIA.OnPhysicsUpdate();
@@ -60,7 +61,7 @@ public class EnemyController : MonoBehaviour
         // Near Range
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(playerDetectionCheck[0].position, playerDetectionCheck[1].position);
-        
+
         // Long Range
         Gizmos.color = Color.green;
         Gizmos.DrawLine(playerDetectionCheck[1].position, playerDetectionCheck[2].position);
@@ -78,49 +79,47 @@ public class EnemyController : MonoBehaviour
 
     public bool CheckPlayerInLongRange()
     {
-        var hits = Physics2D.LinecastAll(playerDetectionCheck[1].position, playerDetectionCheck[2].position);
-        if (hits.Length <= 0) return false;
-        return hits[0].transform.CompareTag("Player");
+        return Physics2D.Linecast(playerDetectionCheck[1].position, playerDetectionCheck[2].position, whatIsPlayer);
     }
-    
+
     public bool CheckPlayerInNearRange()
     {
-        var hits = Physics2D.LinecastAll(playerDetectionCheck[0].position, playerDetectionCheck[1].position);
-        if (hits.Length <= 0) return false;
-        return hits[0].transform.CompareTag("Player");
+        return Physics2D.Linecast(playerDetectionCheck[0].position, playerDetectionCheck[1].position, whatIsPlayer);
     }
-    
+
     public bool CheckPlayerTouchDamage()
     {
         return Physics2D.Linecast(playerDetectionCheck[0].position, playerDetectionCheck[1].position, whatIsPlayer);
     }
-    
+
     public T GetEnemyAnimator<T>() where T : EnemyAnimation
     {
         return enemyAnimation as T;
-    }    
-    
+    }
+
     public T GetEnemyMovement<T>() where T : EnemyMovement
     {
         return enemyMovement as T;
     }
 
-    public void Damage(int amount)
+    public T GetEnemyIA<T>() where T : EnemyIA
     {
-        if (Time.time >= damageCooldownTime)
-        {
-            currentHealth -= amount;
-
-            if (currentHealth <= 0)
-            {
-                Die();
-            }
-            
-            damageCooldownTime = Time.time + damageCooldown;
-        }
+        return enemyIA as T;
     }
 
-    private void Die()
+    public virtual void Damage(int amount)
+    {
+        currentHealth -= amount;
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+
+        damageCooldownTime = Time.time + damageCooldown;
+    }
+
+    protected virtual void Die()
     {
         died = true;
         OnDie.Invoke();
