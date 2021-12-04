@@ -38,6 +38,8 @@ public class Attack : MonoBehaviour
 
     public void DoNormalAttack()
     {
+        if (controller.died) return;
+        
         if (!isAttacking && controller.Movement.grounded)
         {
             controller.Anim.AttackingMelee(true);

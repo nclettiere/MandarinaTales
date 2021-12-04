@@ -5,12 +5,16 @@ namespace Enemies.Mandarino
     public class MandarinoIA : EnemyIA
     {
         [SerializeField] private float mandarinoRollCooldown = 1f;
+        private float flipAfter;
+        private float flipAfterTime = float.NegativeInfinity;
         private float mandarinoRollTime = float.NegativeInfinity;
         private bool canAttack;
 
         public override void Start()
         {
             base.Start();
+
+            flipAfter = Random.Range(3, 5);
             
             controller.GetEnemyAnimator<MandarinoAnimation>()
                 .onRollStartedEvent
@@ -57,6 +61,12 @@ namespace Enemies.Mandarino
             {
                 controller.GetEnemyMovement<MandarinoMovement>().Walk();
                 controller.GetEnemyAnimator<MandarinoAnimation>().WalkAnimation(true);
+
+                if (Time.time >= flipAfterTime)
+                {
+                    controller.enemyMovement.Flip();
+                    flipAfterTime = Time.time + flipAfter;
+                }
             }
         }
     }

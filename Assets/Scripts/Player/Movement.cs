@@ -104,6 +104,11 @@ public class Movement : MonoBehaviour
         int direction = facingRight ? -1 : 1;
         rBody.AddForce(new Vector2(10 * direction, 2), ForceMode2D.Impulse);
     }
+
+    public void Stop()
+    {
+        rBody.velocity = Vector2.zero;
+    }
     
     private void Flip()
     {

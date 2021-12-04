@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
     public PlayerAnimation Anim;
     public int maxHealth;
     public float damageCooldown = 1;
-    
     public Transform CompanionTarget;
     
     private int currentHealth;
@@ -55,6 +54,7 @@ public class PlayerController : MonoBehaviour
     private void Die()
     {
         died = true;
+        Movement.Stop();
         Anim.PlayerDied();
     }
 }
