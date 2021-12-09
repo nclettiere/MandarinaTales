@@ -13,8 +13,16 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         playerController = Instantiate(playerPrefab, transform).GetComponent<PlayerController>();
-        dynamicCamera.ChangeTarget(playerController.transform);
-        dynamicCamera.FollowTarget = true;
+        if (dynamicCamera != null)
+        {
+            dynamicCamera.ChangeTarget(playerController.transform);
+            dynamicCamera.FollowTarget = true;
+        }
+
+        playerController.OnPlayerDie.AddListener(() =>
+        {
+            GameManager.GM.worldManager.ShowGameOverScene(3);
+        });
     }
 
     public Transform GetPlayerTransform()

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,7 +16,14 @@ public class PlayerController : MonoBehaviour
     private int currentHealth;
     private float damageCooldownTime = float.NegativeInfinity;
 
+    public UnityEvent OnPlayerDie;
     public bool died { get; private set; }
+
+    private void Awake()
+    {
+        if(OnPlayerDie == null)
+            OnPlayerDie = new UnityEvent();
+    }
 
     void Start()
     {
@@ -53,6 +61,7 @@ public class PlayerController : MonoBehaviour
     
     private void Die()
     {
+        OnPlayerDie.Invoke();
         died = true;
         Movement.Stop();
         Anim.PlayerDied();

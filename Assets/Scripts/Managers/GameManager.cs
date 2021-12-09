@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Managers;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,11 +13,12 @@ public class GameManager : MonoBehaviour
     public PlayerManager playerManager;
     public EnemyManager enemyManager;
     public SoundManager soundManager;
-    
+    public WorldManager worldManager;
+
     void Awake()
     {
         if (GM != null)
-            Destroy(GM);
+            Destroy(GM.gameObject);
         else
             GM = this;
         DontDestroyOnLoad(this);
@@ -23,14 +26,24 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
-        inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
-        enemyManager = GameObject.Find("EnemyManager").GetComponent<EnemyManager>();
-        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        SearchManagers();
     }
 
-    public void ExitGame()
+    public void SearchManagers()
     {
-        Application.Quit();
+        playerManager = GameObject.Find("/PlayerManager").GetComponent<PlayerManager>();
+        inputManager = GameObject.Find("/InputManager").GetComponent<InputManager>();
+        enemyManager = GameObject.Find("/EnemyManager").GetComponent<EnemyManager>();
+        soundManager = GameObject.Find("/SoundManager").GetComponent<SoundManager>();
+        worldManager = GameObject.Find("/WorldManager").GetComponent<WorldManager>();
+    }
+
+    public static void ExitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+         Application.Quit();
+#endif
     }
 }

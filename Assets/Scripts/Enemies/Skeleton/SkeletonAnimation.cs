@@ -23,7 +23,7 @@ public class SkeletonAnimation : EnemyAnimation
         anim.SetBool(Hit, hit);
     }
     
-    public void DeadAnim()
+    public override void DeadAnim()
     {
         WalkAnim(false);
         HitAnim(false);
