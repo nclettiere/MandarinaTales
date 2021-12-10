@@ -8,28 +8,23 @@ public class SkeletonController : EnemyController
     private int currentFootstep;
     public override void Damage(int amount)
     {
-        currentHealth -= amount;
-
-        if (currentHealth <= 0)
+        if (Time.time >= damageCooldownTime)
         {
-            Die();
-        }
-        else
-        {
-            if(!GetEnemyIA<SkeletonIA>().isAttacking)
-                GetEnemyAnimator<SkeletonAnimation>().HitAnim(true);
-        }
+            currentHealth -= amount;
 
-        damageCooldownTime = Time.time + damageCooldown;
-    }
-    
-    protected override void Die()
-    {
-        died = true;
-        OnDie.Invoke();
-        enemyAnimation.DeadAnim();
-        enemyMovement.DeadMovement();
-        Destroy(gameObject, 3);
+            if (currentHealth <= 0)
+            {
+                Die();
+            }
+            else
+            {
+                GameManager.GM.soundManager.PlayAtLocation(transform.position, HitSFX);
+                if (!GetEnemyIA<SkeletonIA>().isAttacking)
+                    GetEnemyAnimator<SkeletonAnimation>().HitAnim(true);
+            }
+
+            damageCooldownTime = Time.time + damageCooldown;
+        }
     }
 
     public void PlayFootstepSFX()

@@ -9,14 +9,22 @@ public class Attack : MonoBehaviour
     [SerializeField] private float meleeAttackRadius = 0.2f;
     [SerializeField] private LayerMask whatIsEnemy;
     private PlayerController controller;
-    private bool isAttacking;
+    private bool isAttacking, canCheckForDamage;
 
     void Start()
     {
         controller = GetComponent<PlayerController>();
     }
 
-    public void CheckForMeleeDamage()
+    private void Update()
+    {
+        if (canCheckForDamage)
+        {
+            DoDamage();
+        }
+    }
+
+    public void DoDamage()
     {
         if (controller.died) return;
         var hits =
@@ -44,9 +52,16 @@ public class Attack : MonoBehaviour
             isAttacking = true;
         }
     }
+    
+    public void DamageCheck()
+    {
+        canCheckForDamage = true;
+    }
 
     public void SetIsAttacking(bool isAttacking)
     {
         this.isAttacking = isAttacking;
+        if(!isAttacking)
+            canCheckForDamage = false;
     }
 }

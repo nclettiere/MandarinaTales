@@ -20,6 +20,8 @@ public class SkeletonAnimation : EnemyAnimation
     
     public void HitAnim(bool hit)
     {
+        WalkAnim(false);
+        AttackAnim(false);
         anim.SetBool(Hit, hit);
     }
     

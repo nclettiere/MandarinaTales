@@ -9,7 +9,9 @@ using UnityEngine.Events;
 public class EnemyController : MonoBehaviour
 {
     public int maxHealth = 50;
-    public float damageCooldown = 0.25f;
+    public float damageCooldown = 0.5f;
+    public AudioClip HitSFX;
+    public AudioClip DeathSFX;
     [SerializeField] private Transform[] playerDetectionCheck;
     [SerializeField] private LayerMask whatIsPlayer;
     [SerializeField] private bool blockIAOnInvisible = true;
@@ -121,10 +123,14 @@ public class EnemyController : MonoBehaviour
 
     protected virtual void Die()
     {
-        died = true;
-        OnDie.Invoke();
-        enemyAnimation.DeadAnim();
-        enemyMovement.DeadMovement();
-        Destroy(gameObject, 3);
+        if (!died)
+        {
+            GameManager.GM.soundManager.PlayAtLocation(transform.position, DeathSFX);
+            died = true;
+            OnDie.Invoke();
+            enemyAnimation.DeadAnim();
+            enemyMovement.DeadMovement();
+            Destroy(gameObject, 3);
+        }
     }
 }

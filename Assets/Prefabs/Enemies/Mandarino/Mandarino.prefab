@@ -377,6 +377,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   damageCooldown: 1
+  HitSFX: {fileID: 8300000, guid: a3a7b599585863d4d8b8ff8871db6c53, type: 3}
+  DeathSFX: {fileID: 8300000, guid: 9892786ca316bf641868b7a1b3a6e7e8, type: 3}
   playerDetectionCheck:
   - {fileID: 6432102666645475025}
   - {fileID: 6432102665463178023}

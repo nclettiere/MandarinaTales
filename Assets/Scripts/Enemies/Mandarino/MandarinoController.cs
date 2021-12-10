@@ -4,8 +4,22 @@ using UnityEngine;
 
 public class MandarinoController : EnemyController
 {
-    protected override void Update()
+    public override void Damage(int amount)
     {
-        base.Update();
+        if (Time.time >= damageCooldownTime)
+        {
+            currentHealth -= amount;
+
+            if (currentHealth <= 0)
+            {
+                Die();
+            }
+            else
+            {
+                GameManager.GM.soundManager.PlayAtLocation(transform.position, HitSFX);
+            }
+
+            damageCooldownTime = Time.time + damageCooldown;
+        }
     }
 }
