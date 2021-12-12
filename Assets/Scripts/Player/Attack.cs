@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-    [SerializeField] private Transform meleeAttackPostion;
+    [SerializeField] private GameObject distanceAttack;
+    [SerializeField] private Transform meleeAttackPostion, distanceAttackPosition;
     [SerializeField] private float meleeAttackRadius = 0.2f;
     [SerializeField] private LayerMask whatIsEnemy;
     private PlayerController controller;
     private bool isAttacking, canCheckForDamage;
+    public bool CanUsePowerUp;
 
     void Start()
     {
@@ -51,6 +53,23 @@ public class Attack : MonoBehaviour
             controller.Anim.AttackingMelee(true);
             isAttacking = true;
         }
+    }
+    
+    public void DoDistanceAttack()
+    {
+        if (controller.died || !CanUsePowerUp) return;
+
+        if (!isAttacking && controller.Movement.grounded)
+        {
+            controller.Anim.AttackingDistance(true);
+            isAttacking = true;
+        }
+    }
+    
+    public void SpawnProjectile()
+    {
+        Quaternion rotation = controller.Movement.facingRight ? Quaternion.Euler(0, 0, 0) : Quaternion.Euler(0, 180, 0);
+        Instantiate(distanceAttack, distanceAttackPosition.position, rotation);
     }
     
     public void DamageCheck()

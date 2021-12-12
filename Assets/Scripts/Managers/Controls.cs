@@ -41,6 +41,22 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""DistanceAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""98063601-cf0b-4820-a7bd-92a50d270fdd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""768b6a5b-9e24-465f-b794-be6ed1d33e74"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -98,6 +114,28 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""action"": ""Melee"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""38505165-6f77-483d-987d-e78f55b5edee"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DistanceAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fb3a36c2-4d2e-4ba4-ba38-2f6b467b1e63"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -109,6 +147,8 @@ public class @Controls : IInputActionCollection, IDisposable
         m_Gameplay_Horizontal = m_Gameplay.FindAction("Horizontal", throwIfNotFound: true);
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_Melee = m_Gameplay.FindAction("Melee", throwIfNotFound: true);
+        m_Gameplay_DistanceAttack = m_Gameplay.FindAction("DistanceAttack", throwIfNotFound: true);
+        m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -161,6 +201,8 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Horizontal;
     private readonly InputAction m_Gameplay_Jump;
     private readonly InputAction m_Gameplay_Melee;
+    private readonly InputAction m_Gameplay_DistanceAttack;
+    private readonly InputAction m_Gameplay_Pause;
     public struct GameplayActions
     {
         private @Controls m_Wrapper;
@@ -168,6 +210,8 @@ public class @Controls : IInputActionCollection, IDisposable
         public InputAction @Horizontal => m_Wrapper.m_Gameplay_Horizontal;
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @Melee => m_Wrapper.m_Gameplay_Melee;
+        public InputAction @DistanceAttack => m_Wrapper.m_Gameplay_DistanceAttack;
+        public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -186,6 +230,12 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Melee.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMelee;
                 @Melee.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMelee;
                 @Melee.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMelee;
+                @DistanceAttack.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDistanceAttack;
+                @DistanceAttack.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDistanceAttack;
+                @DistanceAttack.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDistanceAttack;
+                @Pause.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -199,6 +249,12 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Melee.started += instance.OnMelee;
                 @Melee.performed += instance.OnMelee;
                 @Melee.canceled += instance.OnMelee;
+                @DistanceAttack.started += instance.OnDistanceAttack;
+                @DistanceAttack.performed += instance.OnDistanceAttack;
+                @DistanceAttack.canceled += instance.OnDistanceAttack;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -208,5 +264,7 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnHorizontal(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnMelee(InputAction.CallbackContext context);
+        void OnDistanceAttack(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

@@ -30,6 +30,36 @@ Transform:
   m_Father: {fileID: 3839992516537579526}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2175527265260936937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7166095127059391081}
+  m_Layer: 7
+  m_Name: DistanceAttackTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7166095127059391081
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2175527265260936937}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.413, y: -0.04, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3839992516537579526}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5008560878917481083
 GameObject:
   m_ObjectHideFlags: 0
@@ -98,6 +128,7 @@ Transform:
   - {fileID: 8666835917032644481}
   - {fileID: 7685450622039927067}
   - {fileID: 918099084721290916}
+  - {fileID: 7166095127059391081}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -119,6 +150,10 @@ MonoBehaviour:
   maxHealth: 10
   damageCooldown: 1
   CompanionTarget: {fileID: 7685450622039927067}
+  currentHealth: 0
+  OnPlayerDie:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5594246908069332035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,7 +166,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 585707c5212d38b4b873aa0d74829d8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceAttack: {fileID: 1310016955660327801, guid: 2756cc37737a1c849972e33b958083b9, type: 3}
   meleeAttackPostion: {fileID: 918099084721290916}
+  distanceAttackPosition: {fileID: 7166095127059391081}
   meleeAttackRadius: 0.26
   whatIsEnemy:
     serializedVersion: 2

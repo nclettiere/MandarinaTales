@@ -7,6 +7,7 @@ TagManager:
   - Companion
   - Ground
   - Enemy
+  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Player
   - Enemy
   - Companion
-  - 
+  - Projectile
   - 
   - 
   - 

@@ -17,7 +17,7 @@ public class Movement : MonoBehaviour
     private PlayerController controller;
     private Rigidbody2D rBody;
     private Vector3 velocity = Vector3.zero;
-    private bool facingRight = true;
+    public bool facingRight = true;
     public bool grounded;
 
     private float horizontalMovement;

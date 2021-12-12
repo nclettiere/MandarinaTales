@@ -18,6 +18,8 @@ public class Companion : MonoBehaviour
     private Vector3 startPos;
     private bool facingRight = true;
 
+    private ICompanionHost player;
+
     void Start()
     {
         startPos = transform.position;
@@ -32,9 +34,7 @@ public class Companion : MonoBehaviour
 
     private void FollowPlayer()
     {
-        Vector3 target = GameManager.GM.playerManager
-            .GetPlayerController()
-            .GetCompanionTarget();
+        Vector3 target = player.GetCompanionTarget();
 
         if (Vector3.Distance(transform.position, target) >= 0.1f &&
             Vector3.Distance(transform.position, target) >= 0.1f)
@@ -50,8 +50,7 @@ public class Companion : MonoBehaviour
         transform.position =
             Vector3.Lerp(transform.position, new Vector3(target.x, target.y, startPos.z), Time.deltaTime);
 
-        var playerPos = GameManager.GM.playerManager
-            .GetPlayerController().transform.position.x;
+        var playerPos = player.GetCurrentPosition().x;
 
         if (transform.position.x > playerPos && facingRight)
             Flip();
@@ -73,6 +72,10 @@ public class Companion : MonoBehaviour
             {
                 if (hit.transform.CompareTag("Player"))
                 {
+                    player = hit.transform.GetComponent<ICompanionHost>();
+                    //if(hit.transform is ICompanion)
+                    //    player = hit.transform as ICompanion;
+                    
                     anim.SetBool(Following, true);
                     following = true;
                 }

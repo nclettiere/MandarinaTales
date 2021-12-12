@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] GameObject playerPrefab;
-    [SerializeField] DynamicCamera dynamicCamera;
+    [SerializeField] private GameObject powerUpIndicator;
+    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private DynamicCamera dynamicCamera;
 
     private PlayerController playerController;
     
@@ -38,5 +39,15 @@ public class PlayerManager : MonoBehaviour
     public void MoverJugadorHorizontal(float valor)
     {
         playerController.Movement.MoverHorizontal(valor);
+    }
+
+    public void GivePowerUp()
+    {
+        // indicator xdd
+        Vector3 playerPos = playerController.transform.localPosition;
+        Vector3 pos = new Vector3(playerPos.x + (-0.066f), playerPos.y + (-0.212f));
+        Instantiate(powerUpIndicator, pos, Quaternion.identity, playerController.transform);
+
+        playerController.Attack.CanUsePowerUp = true;
     }
 }

@@ -17,13 +17,31 @@ public class InputManager : MonoBehaviour
     {
         SetupPlayerMovement();
         SetupPlayerAttack();
+        SetupPause();
         
         controls.Enable();
     }
 
+    private void OnEnable()
+    {
+        controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Disable();
+    }
+
+    private void SetupPause()
+    {        
+        controls.Gameplay.Pause.performed += ctx =>
+        {
+            GameManager.GM.OnPauseRequested();
+        };
+    }
+
     private void SetupPlayerMovement()
     {
-        // Movimiento Horizontal
         controls.Gameplay.Horizontal.performed += ctx =>
         {
             GameManager.GM.playerManager.GetPlayerController()
@@ -35,7 +53,6 @@ public class InputManager : MonoBehaviour
             GameManager.GM.playerManager.MoverJugadorHorizontal(0);
         };
         
-        // Saltar
         controls.Gameplay.Jump.performed += ctx =>
         {
             GameManager.GM.playerManager.GetPlayerController()
@@ -50,5 +67,21 @@ public class InputManager : MonoBehaviour
             GameManager.GM.playerManager.GetPlayerController()
                 .Attack.DoNormalAttack();
         };
+        
+        controls.Gameplay.DistanceAttack.performed += ctx =>
+        {
+            GameManager.GM.playerManager.GetPlayerController()
+                .Attack.DoDistanceAttack();
+        };
+    }
+
+    public void DisableInput()
+    {
+        controls.Disable();
+    }
+    
+    public void EnableInput()
+    {
+        controls.Enable();
     }
 }

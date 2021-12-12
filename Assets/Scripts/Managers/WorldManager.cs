@@ -23,6 +23,14 @@ namespace Managers
             StartCoroutine(LoadScene(sceneName, delay, false));
         }
         
+        public void ShowGameLevelWon(float delay = 3)
+        {
+            const string sceneName = "LevelWon";
+            //GameManager.GM.Nivel1Camera.gameObject.SetActive(false);
+            //GameManager.GM.Nivel1EventSystem.gameObject.SetActive(false);
+            StartCoroutine(LoadScene(sceneName, delay, false));
+        }
+        
         public void ShowNivel1(float delay = 0)
         {
             const string sceneName = "Nivel1";

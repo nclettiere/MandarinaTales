@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1310016954044824362}
   - component: {fileID: 1310016954044824360}
   - component: {fileID: 1310016954044824363}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Impact
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 1310016955175264531}
   - component: {fileID: 1310016955175264530}
   - component: {fileID: 1310016955175264541}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Shoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,9 +213,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1310016955660327806}
-  m_Layer: 7
+  - component: {fileID: 1805035567123783014}
+  - component: {fileID: 9064642961881237595}
+  - component: {fileID: 8782681363808009250}
+  m_Layer: 10
   m_Name: AtaqueDistancia
-  m_TagString: Player
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -236,3 +239,56 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1805035567123783014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310016955660327801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e05aebf573e21374290c35b3c57a2cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageAmount: 5
+  Speed: 2
+  Projectile: {fileID: 1310016955175264540}
+  Impact: {fileID: 1310016954044824341}
+--- !u!50 &9064642961881237595
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310016955660327801}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 6
+--- !u!58 &8782681363808009250
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310016955660327801}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.12972258, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.113622025

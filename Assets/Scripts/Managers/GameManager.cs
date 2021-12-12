@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Managers;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
@@ -16,18 +17,30 @@ public class GameManager : MonoBehaviour
     public WorldManager worldManager;
     public UIManager uiManager;
 
+    public bool isGamePaused;
+    public UnityEvent<bool> OnPause;
+
     void Awake()
     {
         if (GM != null)
             Destroy(GM);
         else
             GM = this;
+        
+        if (OnPause == null)
+            OnPause = new UnityEvent<bool>();
+        
         DontDestroyOnLoad(this);
     }
 
     void Start()
     {
         SearchManagers();
+        
+        enemyManager.OnAllEnemiesSlain.AddListener(() =>
+        {
+            worldManager.ShowGameLevelWon();
+        });
     }
 
     public void SearchManagers()
@@ -47,5 +60,24 @@ public class GameManager : MonoBehaviour
 #else
          Application.Quit();
 #endif
+    }
+
+    public void OnPauseRequested()
+    {
+        isGamePaused = !isGamePaused;
+        OnPause.Invoke(isGamePaused);
+        
+        uiManager.ShowOrHidePauseMenu();
+
+        if (isGamePaused)
+        {
+            Time.timeScale = 0;
+            inputManager.DisableInput();
+        }
+        else
+        {
+            Time.timeScale = 1;
+            inputManager.EnableInput();
+        }
     }
 }

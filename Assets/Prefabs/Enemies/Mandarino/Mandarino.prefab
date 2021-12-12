@@ -225,11 +225,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6432102666964511861}
+  - component: {fileID: 6432102666964511752}
   - component: {fileID: 6432102666964511860}
   - component: {fileID: 6432102666964511859}
   - component: {fileID: 6432102666964511863}
   - component: {fileID: 6432102666964511862}
-  - component: {fileID: 6432102666964511752}
   - component: {fileID: 6432102666964511753}
   - component: {fileID: 6432102666964511754}
   - component: {fileID: 6432102666964511756}
@@ -256,6 +256,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6432102666964511752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6432102666964511858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8383f6ef0ecdf9e4e93a2b9b0c7d1294, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 4
+  damageCooldown: 1
+  HitSFX: {fileID: 8300000, guid: a3a7b599585863d4d8b8ff8871db6c53, type: 3}
+  DeathSFX: {fileID: 8300000, guid: 9892786ca316bf641868b7a1b3a6e7e8, type: 3}
+  playerDetectionCheck:
+  - {fileID: 6432102666645475025}
+  - {fileID: 6432102665463178023}
+  - {fileID: 6432102666116693646}
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 128
+  blockIAOnInvisible: 0
+  enemyIA: {fileID: 6432102666964511753}
+  enemyAnimation: {fileID: 6432102666964511754}
+  enemyMovement: {fileID: 6432102666964511757}
+  enemyAttack: {fileID: 6432102666964511756}
+  OnDie:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!212 &6432102666964511860
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -363,37 +394,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.08072218}
   serializedVersion: 2
   m_Radius: 0.080815345
---- !u!114 &6432102666964511752
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6432102666964511858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8383f6ef0ecdf9e4e93a2b9b0c7d1294, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 5
-  damageCooldown: 1
-  HitSFX: {fileID: 8300000, guid: a3a7b599585863d4d8b8ff8871db6c53, type: 3}
-  DeathSFX: {fileID: 8300000, guid: 9892786ca316bf641868b7a1b3a6e7e8, type: 3}
-  playerDetectionCheck:
-  - {fileID: 6432102666645475025}
-  - {fileID: 6432102665463178023}
-  - {fileID: 6432102666116693646}
-  whatIsPlayer:
-    serializedVersion: 2
-    m_Bits: 128
-  blockIAOnInvisible: 0
-  enemyIA: {fileID: 6432102666964511753}
-  enemyAnimation: {fileID: 6432102666964511754}
-  enemyMovement: {fileID: 6432102666964511757}
-  enemyAttack: {fileID: 6432102666964511756}
-  OnDie:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &6432102666964511753
 MonoBehaviour:
   m_ObjectHideFlags: 0

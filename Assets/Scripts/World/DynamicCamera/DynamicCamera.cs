@@ -8,13 +8,10 @@ namespace CameraManagement
 
     public class DynamicCamera : MonoBehaviour
     {
-        [Header("(Required) Camera object and target")]
         [SerializeField]
         private Camera CameraObject;
         [SerializeField]
         private Transform target;
-
-        [Header("(Optional) Camera options")]
 
         [SerializeField]
         private Vector2 cameraOffset = new Vector3(10f, 3.5f);

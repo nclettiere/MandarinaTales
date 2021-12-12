@@ -13,6 +13,8 @@ public class EnemyManager : MonoBehaviour
     public UnityEvent OnAllEnemiesSlain; 
         
     private List<EnemyController> enemies;
+    private bool hasGivenPowerUp;
+    private int powerUpRandom;
 
     private void Awake()
     {
@@ -27,6 +29,8 @@ public class EnemyManager : MonoBehaviour
     private void Start()
     {
         SpawnEnemies();
+
+        powerUpRandom = Random.Range(0, 5);
     }
 
     private void SpawnEnemies()
@@ -48,6 +52,16 @@ public class EnemyManager : MonoBehaviour
 
     public void RemoveEnemyFromWorld(EnemyController controller)
     {
+        
+        if (!hasGivenPowerUp)
+        {
+            if (enemies.Count == 10 - powerUpRandom)
+            {
+                GameManager.GM.playerManager.GivePowerUp();
+                hasGivenPowerUp = true;
+            }
+        }
+        
         if(enemies.Contains(controller))
             enemies.Remove(controller);
         

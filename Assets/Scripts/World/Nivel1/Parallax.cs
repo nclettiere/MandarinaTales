@@ -7,10 +7,12 @@ public class Parallax : MonoBehaviour
     public Camera cam;
     public SpriteRenderer sprite;
     public bool isHorizon;
+    public bool isMainMenu;
+    public Transform playerDummy;
 
     private Vector2 startPosition;
     private Vector2 travelDistance => (Vector2) cam.transform.position - startPosition;
-    private float distanceFromPlayer => transform.position.z - GameManager.GM.playerManager.GetPlayerTransform().position.z;
+    private float distanceFromPlayer => transform.position.z - (isMainMenu ? playerDummy.position.z : GameManager.GM.playerManager.GetPlayerTransform().position.z);
     private float clippingPane =>
         (cam.transform.position.z + (distanceFromPlayer > 0 ? cam.farClipPlane : cam.nearClipPlane));
     private float parallaxFactor => Mathf.Abs(distanceFromPlayer) / clippingPane;

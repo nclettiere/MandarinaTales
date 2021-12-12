@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, ICompanionHost
 {
     public Attack Attack;
     public Movement Movement;
@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
     public int maxHealth;
     public float damageCooldown = 1;
     public Transform CompanionTarget;
-
     public int currentHealth;
     private float damageCooldownTime = float.NegativeInfinity;
 
@@ -38,7 +37,12 @@ public class PlayerController : MonoBehaviour
     {
         return CompanionTarget.position;
     }
-    
+
+    public Vector3 GetCurrentPosition()
+    {
+        return transform.position;
+    }
+
     public void Damage(Tuple<int, bool> options)
     {
         if (currentHealth <= 0) return;
@@ -55,6 +59,9 @@ public class PlayerController : MonoBehaviour
                 Anim.PlayerHurt(true);
                 if (options.Item2)
                     Movement.DoKnockback();
+                
+                if(currentHealth <= 3)
+                    GameManager.GM.uiManager.ShowLowHealthIndicator();
             }
             
             damageCooldownTime = Time.time + damageCooldown;

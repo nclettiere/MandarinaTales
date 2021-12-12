@@ -11,6 +11,12 @@ TextureImporter:
   - first:
       213: 8615672405087408359
     second: HealthBar DARK_2
+  - first:
+      213: 6295436588568192482
+    second: HealthBar DARK_3
+  - first:
+      213: 6726147409594235419
+    second: HealthBar DARK_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -158,6 +164,48 @@ TextureImporter:
       bones: []
       spriteID: 7e0de569764019770800000000000000
       internalID: 8615672405087408359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HealthBar DARK_3
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 100
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e5aa9ff832ed5750800000000000000
+      internalID: 6295436588568192482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HealthBar DARK_4
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 103
+        width: 6
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1a37cfae63185d50800000000000000
+      internalID: 6726147409594235419
       vertices: []
       indices: 
       edges: []

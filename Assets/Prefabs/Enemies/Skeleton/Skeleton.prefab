@@ -84,7 +84,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1979124866699385496}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0555, y: -0.0575, z: 0}
+  m_LocalPosition: {x: 0.1057, y: -0.0575, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1979124867907285772}
@@ -393,7 +393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BasicAttackAmount: 3
   BasicAttackPosition: {fileID: 1979124866699385497}
-  BasicAttackRadius: 0.1
+  BasicAttackRadius: 0.2
   WhatIsPlayer:
     serializedVersion: 2
     m_Bits: 128

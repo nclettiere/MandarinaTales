@@ -10,19 +10,62 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private Slider Healthbar;
     [SerializeField] private TextMeshProUGUI enemyAmountText;
+    [SerializeField] private GameObject topHUD, pauseMenu, optionsMenu;
+    [SerializeField] private Animator HealthIconIndicator;
+    [SerializeField] private bool IsMainMenu;
 
     private void Start()
     {
-        GameManager.GM.enemyManager.OnEnemySlain.AddListener(() =>
+        if (!IsMainMenu)
         {
-            int currentEnemyAmount = GameManager.GM.enemyManager.GetEnemyCountInWorld();
-            enemyAmountText.text = $"Enemigos Restantes {currentEnemyAmount}/10";
-        });
+            GameManager.GM.enemyManager.OnEnemySlain.AddListener(() =>
+            {
+                int currentEnemyAmount = GameManager.GM.enemyManager.GetEnemyCountInWorld();
+                enemyAmountText.text = $"{currentEnemyAmount}";
+            });
+        }
     }
 
     public void OnPlayerHealthChanged()
     {
         Healthbar.maxValue = GameManager.GM.playerManager.GetPlayerController().maxHealth;
         Healthbar.value = GameManager.GM.playerManager.GetPlayerController().currentHealth;
+    }
+
+    public void ShowOrHidePauseMenu()
+    {
+        pauseMenu.SetActive(GameManager.GM.isGamePaused);
+    }
+
+    public void ResumeButtonClick()
+    {
+        GameManager.GM.OnPauseRequested();
+    }
+    
+    public void QuitButtonClick()
+    {
+        GameManager.ExitGame();
+    }
+    
+    public void OptionsButtonClick()
+    {
+        pauseMenu.SetActive(false);
+        optionsMenu.SetActive(true);
+    }
+
+    public void ShowLowHealthIndicator()
+    {
+        HealthIconIndicator.SetBool("LowHealth", true);
+    }
+
+    public void ShowOrHideTopHud(bool show)
+    {
+        topHUD.SetActive(show);
+    }
+    
+    public void CloseOptionsButtonClick()
+    {
+        pauseMenu.SetActive(true);
+        optionsMenu.SetActive(false);
     }
 }
