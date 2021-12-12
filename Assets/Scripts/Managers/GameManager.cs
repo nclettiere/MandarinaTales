@@ -14,11 +14,12 @@ public class GameManager : MonoBehaviour
     public EnemyManager enemyManager;
     public SoundManager soundManager;
     public WorldManager worldManager;
+    public UIManager uiManager;
 
     void Awake()
     {
         if (GM != null)
-            Destroy(GM.gameObject);
+            Destroy(GM);
         else
             GM = this;
         DontDestroyOnLoad(this);
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour
         enemyManager = GameObject.Find("/EnemyManager").GetComponent<EnemyManager>();
         soundManager = GameObject.Find("/SoundManager").GetComponent<SoundManager>();
         worldManager = GameObject.Find("/WorldManager").GetComponent<WorldManager>();
+        uiManager = GameObject.Find("/UIManager").GetComponent<UIManager>();
     }
 
     public static void ExitGame()

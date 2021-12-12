@@ -12,8 +12,8 @@ public class PlayerController : MonoBehaviour
     public int maxHealth;
     public float damageCooldown = 1;
     public Transform CompanionTarget;
-    
-    private int currentHealth;
+
+    public int currentHealth;
     private float damageCooldownTime = float.NegativeInfinity;
 
     public UnityEvent OnPlayerDie;
@@ -46,6 +46,8 @@ public class PlayerController : MonoBehaviour
         {
             currentHealth -= options.Item1;
     
+            GameManager.GM.uiManager.OnPlayerHealthChanged();
+            
             if (currentHealth <= 0)
                 Die();
             else

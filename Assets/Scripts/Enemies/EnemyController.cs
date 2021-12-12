@@ -125,6 +125,7 @@ public class EnemyController : MonoBehaviour
     {
         if (!died)
         {
+            GameManager.GM.enemyManager.RemoveEnemyFromWorld(this);
             GameManager.GM.soundManager.PlayAtLocation(transform.position, DeathSFX);
             died = true;
             OnDie.Invoke();
