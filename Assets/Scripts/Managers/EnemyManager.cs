@@ -58,6 +58,8 @@ public class EnemyManager : MonoBehaviour
             if (enemies.Count == 10 - powerUpRandom)
             {
                 GameManager.GM.playerManager.GivePowerUp();
+                GameManager.GM.uiManager.ShowPowerUpIndicator();
+                GameManager.GM.playerManager.ShowPowerUpText();
                 hasGivenPowerUp = true;
             }
         }

@@ -4791,6 +4791,7 @@ MonoBehaviour:
   topHUD: {fileID: 0}
   pauseMenu: {fileID: 2055654825}
   optionsMenu: {fileID: 896624197}
+  powerUpIndicator: {fileID: 0}
   HealthIconIndicator: {fileID: 0}
   IsMainMenu: 1
 --- !u!4 &1202036090
@@ -6813,6 +6814,14 @@ PrefabInstance:
     - target: {fileID: 6512070763652665762, guid: dd288436a92669a4e87935e7ebf69916, type: 3}
       propertyPath: m_Constraints
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6512070763652665766, guid: dd288436a92669a4e87935e7ebf69916, type: 3}
+      propertyPath: delta
+      value: 0.025
+      objectReference: {fileID: 0}
+    - target: {fileID: 6512070763652665766, guid: dd288436a92669a4e87935e7ebf69916, type: 3}
+      propertyPath: IsMainMenu
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6512070763652665767, guid: dd288436a92669a4e87935e7ebf69916, type: 3}
       propertyPath: m_RootOrder

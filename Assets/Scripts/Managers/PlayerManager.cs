@@ -40,6 +40,11 @@ public class PlayerManager : MonoBehaviour
     {
         playerController.Movement.MoverHorizontal(valor);
     }
+    
+    public void ShowPowerUpText()
+    {
+        playerController.powerupText.SetActive(true);
+    }
 
     public void GivePowerUp()
     {

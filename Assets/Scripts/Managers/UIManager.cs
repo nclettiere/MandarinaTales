@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private Slider Healthbar;
     [SerializeField] private TextMeshProUGUI enemyAmountText;
-    [SerializeField] private GameObject topHUD, pauseMenu, optionsMenu;
+    [SerializeField] private GameObject topHUD, pauseMenu, optionsMenu, powerUpIndicator;
     [SerializeField] private Animator HealthIconIndicator;
     [SerializeField] private bool IsMainMenu;
 
@@ -67,5 +67,10 @@ public class UIManager : MonoBehaviour
     {
         pauseMenu.SetActive(true);
         optionsMenu.SetActive(false);
+    }
+
+    public void ShowPowerUpIndicator()
+    {
+        powerUpIndicator.SetActive(true);
     }
 }

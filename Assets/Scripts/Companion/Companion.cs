@@ -9,10 +9,11 @@ public class Companion : MonoBehaviour
 {
     public float InteraactionRadius = 1f;
     public LayerMask WhatIsPlayer;
-
-    private bool following;
+    public bool IsMainMenu;
+    public float delta = 0.05f;
 
     [SerializeField] private Animator anim;
+    private bool following;
     private static readonly int Following = Animator.StringToHash("Following");
 
     private Vector3 startPos;
@@ -47,9 +48,13 @@ public class Companion : MonoBehaviour
             return;
         }
 
-        transform.position =
+        if(!IsMainMenu)
+            transform.position =
             Vector3.Lerp(transform.position, new Vector3(target.x, target.y, startPos.z), Time.deltaTime);
-
+        else 
+            transform.position =
+            Vector3.Lerp(transform.position, new Vector3(target.x, target.y, startPos.z), delta);
+       
         var playerPos = player.GetCurrentPosition().x;
 
         if (transform.position.x > playerPos && facingRight)

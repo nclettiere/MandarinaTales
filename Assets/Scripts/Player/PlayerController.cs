@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour, ICompanionHost
     public float damageCooldown = 1;
     public Transform CompanionTarget;
     public int currentHealth;
+    public GameObject powerupText;
     private float damageCooldownTime = float.NegativeInfinity;
 
     public UnityEvent OnPlayerDie;
