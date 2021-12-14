@@ -8,11 +8,11 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private Slider Healthbar;
-    [SerializeField] private TextMeshProUGUI enemyAmountText;
-    [SerializeField] private GameObject topHUD, pauseMenu, optionsMenu, powerUpIndicator;
-    [SerializeField] private Animator HealthIconIndicator;
-    [SerializeField] private bool IsMainMenu;
+    public Slider Healthbar;
+    public TextMeshProUGUI enemyAmountText;
+    public GameObject topHUD, pauseMenu, optionsMenu, powerUpIndicator;
+    public Animator HealthIconIndicator;
+    public bool IsMainMenu;
 
     private void Start()
     {

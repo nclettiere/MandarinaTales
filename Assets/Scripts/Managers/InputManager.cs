@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    private static Controls controls;
+    public Controls controls;
 
     private void Awake()
     {

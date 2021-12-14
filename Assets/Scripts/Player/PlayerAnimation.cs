@@ -37,6 +37,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void UpdateGrounded(bool grounded)
     {
+        if (anim == null) return;
         if(!anim.GetBool(IsAttackingMelee) && !anim.GetBool(Hurt))
             anim.SetBool(Grounded, grounded);
     }

@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] private GameObject powerUpIndicator;
-    [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private DynamicCamera dynamicCamera;
+    public GameObject powerUpIndicator;
+    public GameObject playerPrefab;
+    public DynamicCamera dynamicCamera;
 
     private PlayerController playerController;
     

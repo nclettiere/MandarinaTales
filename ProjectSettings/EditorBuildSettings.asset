@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelWon.unity
     guid: 8dfd45fd891a92b478647daa3d9f2979
+  - enabled: 1
+    path: Assets/Scenes/Dummy.unity
+    guid: 129d6f5eb3215084cb16775c81624687
   m_configObjects: {}
