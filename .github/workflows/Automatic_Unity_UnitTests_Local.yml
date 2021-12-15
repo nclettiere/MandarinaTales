@@ -1,14 +1,11 @@
-name: Test_Local
-
-on:
+name: Test (Local)
+on: 
   push:
-    branches:
-      - master
-      - tests
+    tags:
+      - 'v*'
   pull_request:
-    branches:
-      - master
-      - tests
+    tags:
+      - 'v*'
       
 jobs:
   build:
