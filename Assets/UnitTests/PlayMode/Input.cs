@@ -10,7 +10,6 @@ using UnityEngine.InputSystem.Utilities;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
-
 public class Input : InputTestFixture
 {
     private static Keyboard keyboard;
@@ -76,21 +75,21 @@ public class Input : InputTestFixture
         yield return null;
     }
 
-    [UnityTearDown]
-    public IEnumerator Shutdown()
-    {
-        var objects = GameObject.FindObjectsOfType<GameObject>();
-        foreach (var o in objects)
-        {
-            GameObject.Destroy(o.gameObject);
-        }
-
-        loaded = false;
-        SceneManager.LoadSceneAsync("Assets/Scenes/Dummy.unity");
-        SceneManager.sceneLoaded += (s, m) => loaded = true;
-        yield return new WaitUntil(() => loaded);
-        yield return new WaitForSeconds(1);
-    }
+    //[UnityTearDown]
+    //public IEnumerator Shutdown()
+    //{
+    //    var objects = GameObject.FindObjectsOfType<GameObject>();
+    //    foreach (var o in objects)
+    //    {
+    //        GameObject.Destroy(o.gameObject);
+    //    }
+//
+    //    loaded = false;
+    //    SceneManager.LoadSceneAsync("Assets/Scenes/Dummy.unity");
+    //    SceneManager.sceneLoaded += (s, m) => loaded = true;
+    //    yield return new WaitUntil(() => loaded);
+    //    yield return new WaitForSeconds(1);
+    //}
 
     [UnityTest]
     public IEnumerator TestMovementLeft()

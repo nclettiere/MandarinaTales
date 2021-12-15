@@ -1,0 +1,36 @@
+name: Test (Local)
+
+on:
+  push:
+    branches:
+      - master
+      - tests
+  pull_request:
+    branches:
+      - master
+      - tests
+      
+jobs:
+  testAllModes:
+    name: Test in ${{ matrix.testMode }}
+    runs-on: self-hosted
+    strategy:
+      fail-fast: false
+      matrix:
+        testMode:
+          - playmode
+          - editmode
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: false
+      - uses: actions/setup-python@v2
+      with:
+          python-version: '3.x'
+          architecture: 'x64'
+      - run: python Test.py -u "C:\Program Files\Unity\Hub\Editor\2020.3.12f1\Editor\Unity.exe" -p . -d . -m ${{ matrix.testMode }}
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: UnitTest results - ${{ matrix.testMode }}
+          path: test_results.xml
