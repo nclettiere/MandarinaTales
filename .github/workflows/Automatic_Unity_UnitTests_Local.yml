@@ -25,7 +25,7 @@ jobs:
         with:
           lfs: false
       - uses: actions/setup-python@v2
-      with:
+        with:
           python-version: '3.x'
           architecture: 'x64'
       - run: python Test.py -u "C:\Program Files\Unity\Hub\Editor\2020.3.12f1\Editor\Unity.exe" -p . -d . -m ${{ matrix.testMode }}
