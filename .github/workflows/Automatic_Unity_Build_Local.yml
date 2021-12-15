@@ -10,8 +10,8 @@ on:
 
 jobs:
   buildForAllSupportedPlatforms:
-    name: Buildeando
-    runs-on: windows-latest
+    name: Buildeando wachin
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
