@@ -15,7 +15,7 @@ parser.add_option("-d", "--destination", dest="destination",
                   help="Path donde se creara el ejecutable", metavar="DESTINATION")
 parser.add_option("-m", "--mode", dest="mode",
                   help="Mode en el que se ejecutaran los tests (playmode o editmode)", metavar="MODE")
-parser.add_option("-t", "--tests", dest="tests", default=""
+parser.add_option("-t", "--tests", dest="tests", default="",
                   help="Array separado por commas con los test a ejecutar, si esta vacio se ejecutan todos los tests.", metavar="TESTS")
 
 def print_help():
