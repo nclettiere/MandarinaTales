@@ -23,7 +23,9 @@ jobs:
         with:
           python-version: '3.x'
           architecture: x64
-      - run: python Test.py -u "C:\Program Files\Unity\Hub\Editor\2020.3.12f1\Editor\Unity.exe" -p . -d . -m ${{ matrix.testMode }}
+      - name: Build For Windows 64 bits
+        run: |
+          python -m Test.py -u "C:\Program Files\Unity\Hub\Editor\2020.3.12f1\Editor\Unity.exe" -p . -d . -m ${{ matrix.testMode }}
       - uses: actions/upload-artifact@v2
         if: always()
         with:
