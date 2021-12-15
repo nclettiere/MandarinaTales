@@ -1,4 +1,4 @@
-name: Test (Local)
+name: Test_Local
 
 on:
   push:
