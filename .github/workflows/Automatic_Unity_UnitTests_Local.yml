@@ -12,7 +12,6 @@ jobs:
     runs-on: self-hosted
     strategy:
       matrix:
-        python-version: '3.x'
         testMode:
           - playmode
           - editmode
@@ -22,7 +21,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: '3.x'
           architecture: x64
       - run: python Test.py -u "C:\Program Files\Unity\Hub\Editor\2020.3.12f1\Editor\Unity.exe" -p . -d . -m ${{ matrix.testMode }}
       - uses: actions/upload-artifact@v2
