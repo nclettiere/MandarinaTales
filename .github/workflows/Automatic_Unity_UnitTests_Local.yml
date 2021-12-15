@@ -26,3 +26,8 @@ jobs:
         with:
           name: UnitTest results - ${{ matrix.testMode }}
           path: test_results.xml
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: UnitTest results - ${{ matrix.testMode }}
+          path: log.txt
