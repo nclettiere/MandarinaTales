@@ -11,23 +11,22 @@ on:
       - tests
       
 jobs:
-  testAllModes:
-    name: Test in ${{ matrix.testMode }}
+  build:
     runs-on: self-hosted
     strategy:
-      fail-fast: false
       matrix:
+        python-version: '3.x'
         testMode:
           - playmode
           - editmode
+    name: Unit Tests
     steps:
       - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          lfs: false
-      - uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
-          architecture: 'x64'
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
       - run: python Test.py -u "C:\Program Files\Unity\Hub\Editor\2020.3.12f1\Editor\Unity.exe" -p . -d . -m ${{ matrix.testMode }}
       - uses: actions/upload-artifact@v2
         if: always()
