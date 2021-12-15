@@ -19,10 +19,12 @@ def print_help():
     sys.exit()
 
 def unity_build(opts):
-    logfile = opts['destination'] + "/" + str(uuid.uuid4()) + ".txt"
+    logfile = opts['destination'] + "/" + "build_log.txt"
     command = opts['unity'] +" -quit -batchmode -logFile "+ logfile +" -projectPath "+ opts['project'] +" -executeMethod Build.build"
     
     p = subprocess.run(command.split(), shell=False, check=True, capture_output=True)
+    
+    subprocess.run("zip_build.bat", shell=False, check=True, capture_output=True)
     
     with open(logfile, "r") as file:
         for line in file:

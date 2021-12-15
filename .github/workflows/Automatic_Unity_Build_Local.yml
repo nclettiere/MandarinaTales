@@ -22,17 +22,11 @@ jobs:
         with:
           fetch-depth: 0
           lfs: false
-      - uses: actions/cache@v2
-        with:
-          path: Library
-          key: Library-${{ matrix.targetPlatform }}
-          restore-keys: Library-
-      - uses: game-ci/unity-builder@v2
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-        with:
-          targetPlatform: ${{ matrix.targetPlatform }}
+      - name: Build
+        run: |
+          python -m Build -u "C:\Program Files\Unity\Hub\Editor\2020.3.12f1\Editor\Unity.exe" -p . -d .
       - uses: actions/upload-artifact@v2
+        if: always()
         with:
-          name: Build-${{ matrix.targetPlatform }}
-          path: build/${{ matrix.targetPlatform }}
+          name: UnitTest results - ${{ matrix.testMode }}
+          path: build.7z
