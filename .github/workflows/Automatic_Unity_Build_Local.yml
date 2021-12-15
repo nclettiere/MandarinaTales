@@ -1,0 +1,32 @@
+name: Mandarina Builder 3000
+
+on: 
+  push:
+    tags:
+      - 'v*'
+  pull_request:
+    tags:
+      - 'v*'
+
+jobs:
+  buildForAllSupportedPlatforms:
+    name: Buildeando
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          lfs: false
+      - uses: olegtarasov/get-tag@v2.1
+        id: tagName
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ProgramcionUnity
+          key: Mandarina
+      - name: Build
+        shell: cmd
+        run: |
+          python -m build python -m Build -u "C:\Program Files\Unity\Hub\Editor\2020.3.12f1\Editor\Unity.exe" -p . -d .
