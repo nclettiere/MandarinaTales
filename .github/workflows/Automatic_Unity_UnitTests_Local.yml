@@ -1,0 +1,39 @@
+name: Test (Local)
+
+on:
+  push:
+    branches:
+      - master
+      - tests
+  pull_request:
+    branches:
+      - master
+      - tests
+      
+jobs:
+  build:
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        testMode:
+          - playmode
+          - editmode
+    name: Unit Tests
+    steps:
+      - uses: actions/checkout@v2
+      - name: Preparar environment
+        run: |
+          pip install tail
+      - name: Ejecutar Test
+        run: |
+          python -m Test -u "C:\Program Files\Unity\Hub\Editor\2020.3.12f1\Editor\Unity.exe" -p . -d . -m ${{ matrix.testMode }}
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: UnitTest results - ${{ matrix.testMode }}
+          path: log.txt
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: UnitTest results - ${{ matrix.testMode }}
+          path: build_log.txt
