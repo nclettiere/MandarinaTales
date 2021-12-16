@@ -1,0 +1,32 @@
+name: Mandarina Builder 3000
+
+on: 
+  push:
+    tags:
+      - 'v*'
+  pull_request:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    name: MANDARINA BUILD
+    runs-on: self-hosted
+    strategy:
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          lfs: false
+      - name: Preparar environment
+        run: |
+          pip install tail
+      - name: Build
+        run: |
+          python -m Build -u "C:\Program Files\Unity\Hub\Editor\2020.3.12f1\Editor\Unity.exe" -p . -d . 
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: Build - Ejecutable
+          path: build.7z
