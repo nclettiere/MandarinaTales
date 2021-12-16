@@ -27,7 +27,7 @@ jobs:
           pip install tail
       - name: Build
         run: |
-          python -m Build -u "C:\Program Files\Unity\Hub\Editor\2020.3.12f1\Editor\Unity.exe" -p . -d .
+          python -m Build -u "C:\Program Files\Unity\Hub\Editor\2020.3.12f1\Editor\Unity.exe" -p . -d . 
       - uses: actions/upload-artifact@v2
         if: always()
         with:
