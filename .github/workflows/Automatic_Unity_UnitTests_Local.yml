@@ -18,6 +18,9 @@ jobs:
     name: Unit Tests
     steps:
       - uses: actions/checkout@v2
+      - name: Preparar environment
+        run: |
+          pip install tail
       - name: Ejecutar Test
         run: |
           python -m Test -u "C:\Program Files\Unity\Hub\Editor\2020.3.12f1\Editor\Unity.exe" -p . -d . -m ${{ matrix.testMode }}
@@ -25,9 +28,9 @@ jobs:
         if: always()
         with:
           name: UnitTest results - ${{ matrix.testMode }}
-          path: test_results.xml
+          path: log.txt
       - uses: actions/upload-artifact@v2
         if: always()
         with:
           name: UnitTest results - ${{ matrix.testMode }}
-          path: log.txt
+          path: build_log.txt
